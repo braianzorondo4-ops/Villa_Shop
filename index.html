@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="Descubrí productos especiales para todos los días en Villa Shop. Comprá fácil y coordiná tu pedido por WhatsApp.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Villa Shop — detalles para disfrutar">
+  <meta property="og:description" content="Encontrá tus favoritos y coordiná tu compra por WhatsApp.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Villa Shop — cosas lindas para todos los días</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="store-config.js" defer></script>
+  <script src="supabase-config.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="announcement">PEDIDOS FÁCILES · ATENCIÓN PERSONALIZADA POR WHATSAPP</div>
+  <header class="site-header">
+    <a class="brand" href="#" data-view="shop" aria-label="Villa Shop, inicio">
+      <span class="brand-mark">V</span>
+      <span>villa<span class="brand-light">shop</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal">
+      <a href="#productos">Tienda</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#nosotros">Nosotros</a>
+    </nav>
+    <div class="header-actions">
+      <a class="header-contact" href="https://wa.me/595982030023" target="_blank" rel="noopener noreferrer">Hablemos <span aria-hidden="true">↗</span></a>
+      <button class="cart-button" id="cart-open" type="button" aria-label="Abrir carrito">
+        <span class="bag-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4.5 8.5h15l1 12h-17l1-12Z"></path><path d="M8 9V6a4 4 0 0 1 8 0v3"></path></svg></span>
+        <span class="cart-label">Mi bolsa</span>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> UNA TIENDA PENSADA PARA VOS</p>
+        <h1>Detalles que hacen<br><em>especial cada día.</em></h1>
+        <p class="hero-description">Encontrá algo lindo para vos o para regalar. Elegimos cada producto con cariño y te acompañamos en cada compra.</p>
+        <a class="button button-dark" href="#productos">Descubrir productos <span aria-hidden="true">↗</span></a>
+        <div class="hero-note"><span class="note-star">✳</span> Comprá a tu ritmo. Coordinamos por WhatsApp.</div>
+      </div>
+      <div class="hero-art" aria-label="Selección de productos Villa Shop">
+        <div class="hero-blob"></div>
+        <div class="floating-note note-top">elegidos<br>con cariño <span>✿</span></div>
+        <div class="hero-product-card">
+          <div class="hero-product-image"><span class="product-sticker">♡</span><span class="hero-product-shape">✿</span></div>
+          <div class="hero-product-caption"><span>Un detalle especial</span><span>VILLA SHOP</span></div>
+        </div>
+        <div class="floating-note note-bottom"><span>VILLA SHOP</span><br>comprá lindo, viví lindo</div>
+        <div class="hero-sparkle sparkle-one">✳</div>
+        <div class="hero-sparkle sparkle-two">✦</div>
+      </div>
+    </section>
+
+    <section class="benefits" aria-label="Beneficios">
+      <div><span class="benefit-icon">✿</span><span><strong>Selección especial</strong><small>Productos elegidos con cariño</small></span></div>
+      <div><span class="benefit-icon">↗</span><span><strong>Envío coordinado</strong><small>Consultá opciones por WhatsApp</small></span></div>
+      <div><span class="benefit-icon">♡</span><span><strong>Atención cercana</strong><small>Te ayudamos en cada paso</small></span></div>
+    </section>
+
+    <section class="products-section" id="productos">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">NUESTRA SELECCIÓN</p>
+          <h2>Encontrá tu <em>favorito.</em></h2>
+        </div>
+        <p class="section-intro">Cosas lindas, prácticas y especiales.<br>Todo en un mismo lugar.</p>
+      </div>
+      <label class="catalog-search"><span aria-hidden="true">⌕</span><span class="sr-only">Buscar productos</span><input id="product-search" type="search" placeholder="¿Qué estás buscando?" autocomplete="off"></label>
+      <div class="filter-row" id="category-filters" aria-label="Filtrar por categoría"></div>
+      <p class="catalog-count" id="catalog-count" aria-live="polite"></p>
+      <p class="catalog-status" id="catalog-status" role="status" hidden></p>
+      <div class="product-grid" id="product-grid"></div>
+    </section>
+
+    <section class="products-section offers-section" id="ofertas">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">POR TIEMPO LIMITADO</p>
+          <h2>Ofertas para <em>vos.</em></h2>
+        </div>
+        <p class="section-intro">Tus favoritos, a un precio especial.</p>
+      </div>
+      <div class="product-grid" id="offer-grid"></div>
+    </section>
+
+    <section class="story-section" id="nosotros">
+      <div class="story-flower">✿</div>
+      <p class="eyebrow">UN POCO DE VILLA</p>
+      <h2>Elegimos cada cosa<br>pensando en <em>vos.</em></h2>
+      <p>Villa Shop es ese lugar donde siempre encontrás algo que te gusta. Gracias por elegirnos y ser parte de esta historia.</p>
+      <a href="#productos" class="text-link">Conocé la tienda <span>→</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div><a class="brand footer-brand" href="#"><span class="brand-mark">V</span><span>villa<span class="brand-light">shop</span></span></a><p class="footer-tagline">Detalles para disfrutar, elegidos con cariño.</p></div>
+    <p>© <span id="current-year"></span> Villa Shop · Hecho con cariño</p>
+    <a href="https://wa.me/595982030023" target="_blank" rel="noopener noreferrer">¿Necesitás ayuda? Escribinos por WhatsApp ↗</a>
+  </footer>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Tu bolsa" aria-hidden="true" inert>
+    <div class="drawer-header"><div><p class="eyebrow">TU SELECCIÓN</p><h2>Mi bolsa <span id="drawer-count">(0)</span></h2></div><button class="icon-button" id="cart-close" aria-label="Cerrar carrito">×</button></div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-empty" id="cart-empty"><span>♡</span><h3>Tu bolsa está esperando</h3><p>Agregá algo lindo para empezar.</p></div>
+    <div class="cart-footer" id="cart-footer">
+      <div class="subtotal"><span>Subtotal</span><strong id="cart-subtotal">$0</strong></div>
+      <p class="shipping-note">El envío y la forma de pago se coordinan personalmente por WhatsApp.</p>
+      <button class="button button-dark button-full" id="checkout-open" type="button">Continuar con mi pedido <span>→</span></button>
+    </div>
+  </aside>
+
+  <dialog class="checkout-dialog" id="checkout-dialog">
+    <form id="checkout-form">
+      <div class="dialog-heading"><div><p class="eyebrow">UN ÚLTIMO PASO</p><h2>Tus datos de entrega</h2></div><button class="icon-button" id="checkout-close" type="button" aria-label="Cerrar">×</button></div>
+      <p class="form-intro">Dejanos tus datos y prepararemos el mensaje con tu pedido. El envío y el pago se coordinan con vos.</p>
+      <label>Nombre y apellido<input name="name" autocomplete="name" required maxlength="100" placeholder="Tu nombre"></label>
+      <label>Teléfono<input name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="Tu número de contacto"></label>
+      <label>Dirección de entrega<input name="address" autocomplete="street-address" required maxlength="160" placeholder="Calle, número, ciudad"></label>
+      <label>Nota para la tienda <span class="optional">(opcional)</span><textarea name="note" rows="2" maxlength="300" placeholder="¿Alguna indicación especial?"></textarea></label>
+      <div class="checkout-total"><span>Subtotal de productos</span><strong id="checkout-total">Gs. 0</strong></div>
+      <p class="checkout-privacy">Al continuar, tus datos se enviarán a Villa Shop por WhatsApp y quedarán registrados para gestionar el pedido. El costo de envío y la forma de pago se confirman por separado.</p>
+      <button class="button button-dark button-full" type="submit">Preparar pedido por WhatsApp <span>→</span></button>
+    </form>
+    <div class="checkout-result" id="checkout-result" hidden>
+      <span class="result-check" aria-hidden="true">✓</span>
+      <p class="eyebrow">PEDIDO PREPARADO</p>
+      <h2>¡Un último paso!</h2>
+      <p>El pedido quedó registrado. Abrí WhatsApp y tocá <strong>Enviar</strong> para que Villa Shop lo reciba y coordine el pago y la entrega.</p>
+      <a class="button button-dark button-full" id="whatsapp-order-link" href="#" target="_blank" rel="noopener noreferrer">Abrir WhatsApp <span>↗</span></a>
+      <button class="button button-outline button-full" id="checkout-finish" type="button">Volver a la tienda</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
